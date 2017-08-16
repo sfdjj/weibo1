@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http:/www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title th:text="#{home.title}">Title</title>
+</head>
+<body>
+
+<!-- html 注释-->
+<!--/* thymeleaf 注释1 */-->
+<!-- /* thymeleaf 注释2 */ -->
+<!--/*-->
+块注释
+bbblllaaa
+
+<!--*/-->
+
+<!-- 变量读取 -->
+<p th:text="${welcome}">hi</p>
+<p th:text="${user.name}">jim</p>
+<p th:text="${user.getName()}">getName</p>
+
+<!--对象读取 -->
+<div th:object="${user}">
+    <p th:text="*{email}">user.email</p>
+</div>
+
+<!-- 系统自带函数88-92, -->
+<p th:text="${#lists.size(list)}">listSize</p>
+<p th:text="${#calendars.format(today, 'yyyy-MM-dd')}">2017-06-06</p>
+
+<!-- 遍历list -->
+<div th:each="li : ${list}">
+    <p th:text="${liStat.count}">current</p>
+    <p th:text="${li}">xxx</p>
+</div>
+
+Map
+<div th:each="mi,mis : ${map}">
+    <p th:text="${mis}">status</p>
+    <p th:text="${mi.key}">key</p>
+    <p th:text="${mi.value}">value</p>
+</div>
+
+<!-- tomcat webapp/weibo/ = /weibo/-->
+<a th:href="@{/}">go app home</a>
+<a th:href="@{~/}">go tomcat root</a>
+
+<!-- string operations -->
+<div>
+    <p th:text="|This is ${user.name}, age: ${user.age}, male: ${user.male}|">use description</p>
+    <p th:text="${user.name}+' ' + ${user.email}">use description</p>
+    <p th:text="(${user.male}) ? ('male') : ('female')">Male/Female</p>
+    <p th:text="(${user.age} > 17) ? ('adult') : ('child')">Child</p>
+</div>
+
+<p th:text="#{home.welcome(${user.name})}"></p>
+
+<p th:text="2+1">2++1</p>
+<img th:src="${imgUrl}" src="http://uploadfiles.nowcoder.com/images/20170531/826546_1496201796627_EC7F2AFC560D881556309F5E7AE05D29">
+<img th:src="'https://www.baidu.com/img/bd_logo1.png'" src="http://uploadfiles.nowcoder.com/images/20170531/826546_1496201796627_EC7F2AFC560D881556309F5E7AE05D29">
+
+<div th:switch="${user.role}">
+    Role:
+    <p th:case="'admin'">Admin</p>
+    <p th:case="'Guest'">Guest</p>
+    <p th:case="*">Default</p>
+</div>
+
+<!--fragment -->
+<div th:insert="inc/footer :: copyright">&copy; 2017 NowCoder</div>
+<div th:insert="~{inc/footer :: copyright2016}">&copy; 2016 NowCoder</div>
+<div th:insert="~{inc/footer :: #copyright2015}">2015</div>
+
+</body>
+</html>
