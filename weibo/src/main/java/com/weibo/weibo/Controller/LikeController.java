@@ -46,7 +46,7 @@ public class LikeController {
                        @RequestParam("entityId") int entityId) {
         try {
             User user = hostHolder.getUser();
-//            if (user == null) {
+///            if (user == null) {
 //                return WeiboUtil.getJSONString(1, "你还没有登陆");
 //            }
             Map<String, Object> map = likeService.dislike(entityType, entityId, user.getId());
